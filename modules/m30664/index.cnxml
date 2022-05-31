@@ -1,0 +1,146 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lập trình</title>
+  <metadata>
+  <md:content-id>m30664</md:content-id><md:title>Lập trình</md:title>
+  <md:abstract>Lập trình có mục đích để làm dễ dàng và đơn giản hoá nhiệm vụ tính toán. Để lập trình trên Mathcad phải dùng đến ngôn ngữ Programming được xây dựng trong Mathcad bao gồm: nhánh điều kiện (IF), cấu trúc vòng lập (FOR, WHILE…), trình bày lỗi…</md:abstract>
+  <md:uuid>9892fcaf-a187-470a-9bc5-b0c04d226384</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-738853034075">
+      <title>Câu điều kiện “if”</title>
+      <para id="id8353064">Thực hiện theo các bước sau:</para>
+      <para id="id8353073"> Kích ngay bên phải khung nhập biểu thức nơi muốn chèn câu lệnh “if” </para>
+      <para id="id8353100"> Từ thanh Math : Kích vào biểu tượng <media id="id1170122603655" alt=""><image src="../../media/graphics1-a6cf.png" mime-type="image/png" height="25" width="22"/></media>, xuất hiện hộp thoại Programming (hìn.h7. 1)</para>
+      <figure id="id8353181">
+        <media id="id1170124186323" alt=""><image src="../../media/graphics2-4920.png" mime-type="image/png" height="150" width="145"/></media>
+      </figure>
+      <para id="id8353205"/>
+      <para id="id8353209">Hình 7.1. Programming</para>
+      <para id="id8353217"/>
+      <para id="id8353221"> Kích vào nút Add Line, xuất hiện 
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+      <para id="id8353278"> Tại vị trí khung trống ở trên kích vào nút “if” (hoặc từ bàn phím nhấn Shift+]), ngay bên phải khung nhập biểu thức, nhập biểu thức Boolean.</para>
+      <para id="id8353321"> Tại vị trí khung trống ở dưới kích vào nút “otherwise”, gõ giá trị muốn chương trình trả về nếu kết quả điều kiện là sai. </para>
+      <para id="id8353347">Ví dụ:</para>
+      <para id="id8353359">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+      <para id="id8353390">Lưu ý: Nếu sử dụng nhiều câu lệnh “if” trước câu lệnh “otherwise” thì câu lệnh “otherwise” chỉ được thực hiện khi tất cả các điều kiện đều sai.</para>
+    </section>
+    <section id="id-454875327626">
+      <title>CÂU LỆNH VÒNG LẶP (PROGRAM LOOPS)</title>
+      <para id="id8969740">Loop là lệnh chương trình được dùng để làm cho một hay nhiều câu lệnh (nội dung vòng lặp) điều hoạt theo chu trình cho đến khi thoả mãn điều kiện đã đưa ra. Trong Mathcad có hai loại câu lệnh lặp:</para>
+      <section id="id-348940651771">
+        <title>Câu lệnh “for”</title>
+        <para id="id8969793"> Câu lệnh “for” : được áp dụng khi bạn biết chính xác số lần vòng lặp được thực thi.</para>
+        <para id="id8969815">Để thực hiện vòng lặp “for” tiến hành theo các bước sau:</para>
+        <para id="id8969832"> Kích ngay bên phải khung nhập biểu thức nơi muốn chèn câu lệnh “for” </para>
+        <figure id="id8969861">
+          <media id="id1170128218675" alt=""><image src="../../media/graphics3-05e8.png" mime-type="image/png" height="61" width="164"/></media>
+        </figure>
+        <para id="id8969884"> Kích vào nút “for” trên thanh Math (hoặc từ bàn phím nhấn Ctrl+”) </para>
+        <figure id="id8969934">
+          <media id="id1170126400762" alt=""><image src="../../media/graphics4-16b9.png" mime-type="image/png" height="83" width="207"/></media>
+        </figure>
+        <para id="id8969958"> Bên trái <media id="id4256762" alt=""><image src="../../media/graphics5-ee36.png" mime-type="image/png" height="15" width="17"/></media> gõ biến thay đổi, bên phải <media id="id1170116570488" alt=""><image src="../../media/graphics6-ee36.png" mime-type="image/png" height="15" width="17"/></media>nhập dãy số chạy</para>
+        <figure id="id8970044">
+          <media id="id3992311" alt=""><image src="../../media/graphics7-e821.png" mime-type="image/png" height="83" width="230"/></media>
+        </figure>
+        <para id="id8970067"> Nhập biểu thức vào khung trống bên dưới </para>
+        <figure id="id8970090">
+          <media id="id1170124084651" alt=""><image src="../../media/graphics8-c9eb.png" mime-type="image/png" height="78" width="226"/></media>
+        </figure>
+        <para id="id8970114">Ví dụ 1: Tính tổng của n số nguyên dương đầu tiên</para>
+        <para id="id8970128">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+        <para id="id8970154">Ví dụ 2: Tính giai thừa của một số</para>
+        <para id="id8970167">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+        <para id="id8970194"/>
+      </section>
+      <section id="id-428102120308">
+        <title>Câu lệnh “while”</title>
+        <para id="id8970207"> Câu lệnh “while” : được dùng khi bạn muốn vòng lặp dừng lại theo điều kiện hiện hành nhưng lại không biết chính xác khi nào điều kiện đó xảy ra.</para>
+        <para id="id8970248">Khi dùng các câu lệnh lặp, bạn cần phải cắt chúng ra thành từng quy trình hoặc kiểm soát tính hoạt động của câu lệnh.</para>
+        <para id="id8970260">Ví dụ:</para>
+        <para id="id8970265">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+      </section>
+    </section>
+    <section id="id-600951995819">
+      <title>Câu lệnh ngắt “break” </title>
+      <para id="id8970301"> Câu lệnh “break” : trong vòng lặp “loop” khi muốn dừng quy trình điều hoạt câu lệnh lặp.</para>
+      <list id="id8970339" list-type="bulleted">
+        <item>Kích vào khung nhập chương trình trong đó muốn đặt câu lệnh “break” </item>
+      </list>
+      <figure id="id8970365">
+        <media id="id7422013" alt=""><image src="../../media/graphics9-fad0.png" mime-type="image/png" height="50" width="104"/></media>
+      </figure>
+      <para id="id8970389"> Kích vào nút “break” trên thanh Math (hoặc từ bàn phím nhấn Ctrl+{) </para>
+      <figure id="id8970447">
+        <media id="id1170116684569" alt=""><image src="../../media/graphics10-8e69.png" mime-type="image/png" height="50" width="153"/></media>
+      </figure>
+      <para id="id8970471">Khi Mathcad bắt gặp câu lệnh “break” trong phần thân của vòng lặp “for” hoặc “while”:</para>
+      <para id="id8970516"> Chu trình lặp sẽ ngưng sự điều hoạt và trả về giá trị đã được tính sau cùng.</para>
+      <para id="id8344058"> Sau đó, chương trình sẽ tiếp tục điều hoạt ngay dòng kế tiếp của chương trình sau chu trình.</para>
+      <para id="id8970527">Ví dụ:</para>
+      <para id="id8344076">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+    </section>
+    <section id="id-194624986483">
+      <title> Hiện kết quả của chương trình “return”</title>
+      <para id="id8344113"> Câu lệnh “return” : theo mặc định, chương trình trả lại những gì nằm trên dòng cuối cùng. Tuy nhiên, có thể trả lại giá trị ở một nơi nào đó trong chương trình với câu lệnh “return”.</para>
+      <para id="id8344155">Để chèn câu lệnh “return”, thực hiện như sau:</para>
+      <para id="id8344172"> Kích vào khung nhập chương trình trong đó muốn đặt câu lệnh “return” </para>
+      <figure id="id8344200">
+        <media id="id4939102" alt=""><image src="../../media/graphics11-fbea.png" mime-type="image/png" height="147" width="111"/></media>
+      </figure>
+      <para id="id8344224"> Kích vào nút “return” trên thanh Math (hoặc từ bàn phím nhấn Ctrl+|) </para>
+      <para id="id8344279">Ví dụ:</para>
+      <figure id="id8344286">
+        <media id="id1170123447156" alt=""><image src="../../media/graphics12-dbc1.png" mime-type="image/png" height="140" width="102"/></media>
+      </figure>
+      <para id="id8344310"> Trong vùng trống bên phải câu lệnh “return”, nhập những gì bạn muốn trả về. Các câu lệnh “return” rất hữu dụng khi bạn muốn trả về giá trị từ vòng lặp.</para>
+      <figure id="id8344349">
+        <media id="id1170115353057" alt=""><image src="../../media/graphics13-7498.png" mime-type="image/png" height="172" width="143"/></media>
+      </figure>
+    </section>
+    <section id="id-916220427246">
+      <title>Tìm lỗi chương trình</title>
+      <para id="id8344382"> Câu lệnh “on error” : muốn trả về giá trị cần giải quyết khi Mathcad bắt gặp lỗi trong chương trình</para>
+      <para id="id8344421">Để chèn câu lệnh “on error”, thực hiện như sau:</para>
+      <para id="id8344438"> Kích vào khung nhập chương trình trong đó muốn đặt câu lệnh “on error” </para>
+      <figure id="id8344466">
+        <media id="id1170122066822" alt=""><image src="../../media/graphics14-3666.png" mime-type="image/png" height="27" width="65"/></media>
+      </figure>
+      <para id="id8344490"> Kích vào nút “on error” trên thanh Math (hoặc từ bàn phím nhấn Ctrl+’)</para>
+      <figure id="id8344544">
+        <media id="id1170125585798" alt=""><image src="../../media/graphics15-4c12.png" mime-type="image/png" height="34" width="150"/></media>
+      </figure>
+      <para id="id8344568"> Trong vùng trống bên phải câu lệnh “on error”, nhập những gì bạn muốn trả về.</para>
+      <figure id="id8344597">
+        <media id="id6046565" alt=""><image src="../../media/graphics16-f3f0.png" mime-type="image/png" height="45" width="170"/></media>
+      </figure>
+      <para id="id8344621"> Trong vùng trống bên trái câu lệnh “on error”, nhập những gì bạn muốn trả về nếu biểu thức mặc định không thể tính được. Dùng nút lệnh “Add Line” để chèn những khung nhập lệnh bổ sung.</para>
+      <para id="id8344660"/>
+      <para id="id8344664">Ví dụ:</para>
+      <figure id="id8344672">
+        <media id="id1170123781428" alt=""><image src="../../media/graphics17-ecc3.png" mime-type="image/png" height="45" width="169"/></media>
+      </figure>
+      <para id="id8344695"> Biểu thức bên phải sẽ được tính và được trả về nếu không có lỗi xảy ra. Và nếu có lỗi xảy ra, biểu thức bên trái sẽ được trả về.</para>
+      <para id="id8344720"/>
+      <para id="id8344742">BÀI TẬP CHƯƠNG 7</para>
+      <para id="id8344750">1. </para>
+      <para id="id8344754">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+      <para id="id8344781"/>
+    </section>
+  </content>
+</document>

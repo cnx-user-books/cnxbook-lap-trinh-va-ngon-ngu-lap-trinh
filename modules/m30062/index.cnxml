@@ -1,0 +1,63 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Tổng quan về Ngôn ngữ lập trình</title>
+  <metadata>
+  <md:content-id>m30062</md:content-id><md:title>Tổng quan về Ngôn ngữ lập trình</md:title>
+  <md:abstract>Môn Lập Trình Căn Bản A cung cấp cho sinh viên những kiến thức cơ bản về lập trình thông qua ngôn ngữ lập trình C.  Môn học này là nền tảng để tiếp thu hầu hết các môn học khác trong chương trình đào tạo. Mặt khác, nắm vững ngôn ngữ C là cơ sở để phát triển các ứng dụng.
+Học xong môn này, sinh viên phải nắm được các vấn đề sau:
+- Khái niệm về ngôn ngữ lập trình.
+- Khái niệm về kiểu dữ liệu
+- Kiểu dữ liệu có cấu trúc (cấu trúc dữ liệu).
+- Khái niệm về giải thuật
+- Ngôn ngữ biểu diễn giải thuật.
+- Ngôn ngữ sơ đồ (lưu đồ), sử dụng lưu đồ để biểu diễn các giải thuật.
+- Tổng quan về Ngôn ngữ lập trình C.
+- Các kiểu dữ liệu trong C.
+- Các lệnh có cấu trúc.
+- Cách thiết kế và sử dụng các hàm trong C.
+- Một số cấu trúc dữ liệu trong C.</md:abstract>
+  <md:uuid>f6d08fbe-642c-4f73-a61c-60c7a051a32d</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-227686820242">
+      <title>ĐỐI TƯỢNG MÔN HỌC</title>
+      <para id="id6313345">Môn học lập trình căn bản được dùng để giảng dạy cho các sinh viên sau:</para>
+      <para id="id6313356">- Sinh viên năm thứ 2 chuyên ngành Tin học, Toán Tin, Lý Tin.</para>
+      <para id="id6313366">- Sinh viên năm thứ 2 chuyên ngành Điện tử (Viễn thông, Tự động hóa…)</para>
+    </section>
+    <section id="id-358465970211">
+      <title>NỘI DUNG CỐT LÕI</title>
+      <para id="id6313384">Trong khuôn khổ 45 tiết, giáo trình được cấu trúc thành 2 phần: Phần 1 giới thiệu về lập trình cấu trúc, các khái niệm về lập trình, giải thuật… Phần 2 trình bày có hệ thống về ngôn ngữ lập trình C, các câu lệnh, các kiểu dữ liệu…</para>
+      <para id="id6313404">PHẦN 1: Giới thiệu cấu trúc dữ liệu và giải thuật</para>
+      <para id="id6313410">PHẦN 2: Giới thiệu về một ngôn ngữ lập trình - Ngôn ngữ lập trình C</para>
+      <para id="id6313418">Chương 1: Giới thiệu về ngôn ngữ C &amp; môi trường lập trình Turbo C</para>
+      <para id="id6313424">Chương 2: Các thành phần của ngôn ngữ C</para>
+      <para id="id6313430">Chương 3: Các kiểu dữ liệu sơ cấp chuẩn và các lệnh đơn</para>
+      <para id="id6313437">Chương 4: Các lệnh có cấu trúc</para>
+      <para id="id6313443">Chương 5: Chương trình con</para>
+      <para id="id6313448">Chương 6: Kiểu mảng</para>
+      <para id="id6313453">Chương 7: Kiểu con trỏ</para>
+      <para id="id6313459">Chương 8: Kiểu chuỗi ký tự</para>
+      <para id="id6313464">Chương 9: Kiểu cấu trúc</para>
+      <para id="id6313469">Chương 10: Kiểu tập tin</para>
+    </section>
+    <section id="id-854677221817">
+      <title>KIẾN THỨC LIÊN QUAN</title>
+      <para id="id6313483">Để học tốt môn Lập Trình Căn Bản A, sinh viên cần phải có các kiến thức nền tảng sau:</para>
+      <para id="id6313492">- Kiến thức toán học.</para>
+      <para id="id6313497">- Kiến thức và kỹ năng thao tác trên máy tính.</para>
+    </section>
+    <section id="id-101493991104">
+      <title>DANH MỤC TÀI LIỆU THAM KHẢO</title>
+      <para id="id6313512">[1] Nguyễn Văn Linh, Giáo trình Tin Học Đại Cương A, Khoa Công Nghệ Thông Tin, Đại học Cần Thơ, 1991.</para>
+      <para id="id6313722">[2] Nguyễn Đình Tê, Hoàng Đức Hải , Giáo trình lý thuyết và bài tập ngôn ngữ C; Nhà xuất bản Giáo dục, 1999.</para>
+      <para id="id6313743">[3] Nguyễn Cẩn, C – Tham khảo toàn diện, Nhà xuất bản Đồng Nai, 1996.</para>
+      <para id="id6313762">[4] Võ Văn Viện, Giúp tự học Lập Trình với ngôn ngữ C, Nhà xuất bản Đồng Nai, 2002.</para>
+      <para id="id6313781">[5] Brain W. Kernighan &amp; Dennis Ritchie, The C Programming Language, Prentice Hall Publisher, 1988.</para>
+    </section>
+    <section id="id-127216632317">
+      <title>TỪ KHÓA</title>
+      <para id="id6313807">Bài toán, chương trình, giải thuật, ngôn ngữ giả, lưu đồ, biểu thức, gán, rẽ nhánh, lặp, hàm, mảng, con trỏ, cấu trúc, tập tin.</para>
+    </section>
+  </content>
+</document>

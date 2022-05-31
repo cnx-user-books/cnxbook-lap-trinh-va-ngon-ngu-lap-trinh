@@ -1,0 +1,483 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Giới thiệu về ngôn ngữ C và môi trường turbo C 3.0</title>
+  <metadata>
+  <md:content-id>m30475</md:content-id><md:title>Giới thiệu về ngôn ngữ C và môi trường turbo C 3.0</md:title>
+  <md:abstract>Học xong chương này, sinh viên sẽ nắm được các vấn đề sau:
+- Tổng quan về ngôn ngữ lập trình C.
+- Môi trường làm việc và cách sử dụng Turbo C 3.0.</md:abstract>
+  <md:uuid>d521254d-9b68-4aea-9194-7a68084c4fc6</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-965832862896">
+      <title>TỔNG QUAN VỀ NGÔN NGỮ LẬP TRÌNH C </title>
+      <para id="id5928189">C là ngôn ngữ lập trình cấp cao, được sử dụng rất phổ biến để lập trình hệ thống cùng với Assembler và phát triển các ứng dụng.</para>
+      <para id="id5928200">Vào những năm cuối thập kỷ 60 đầu thập kỷ 70 của thế kỷ XX, Dennish Ritchie (làm việc tại phòng thí nghiệm Bell) đã phát triển ngôn ngữ lập trình C dựa trên ngôn ngữ BCPL (do Martin Richards đưa ra vào năm 1967) và ngôn ngữ B (do Ken Thompson phát triển từ ngôn ngữ BCPL vào năm 1970 khi viết hệ điều hành UNIX đầu tiên trên máy PDP-7) và được cài đặt lần đầu tiên trên hệ điều hành UNIX của máy DEC PDP-11.</para>
+      <para id="id5928216">Năm 1978, Dennish Ritchie và B.W Kernighan đã cho xuất bản quyển “Ngôn ngữ lập trình C” và được phổ biến rộng rãi đến nay.</para>
+      <para id="id5928226">Lúc ban đầu, C được thiết kế nhằm lập trình trong môi trường của hệ điều hành Unix nhằm mục đích hỗ trợ cho các công việc lập trình phức tạp. Nhưng về sau, với những nhu cầu phát triển ngày một tăng của công việc lập trình, C đã vượt qua khuôn khổ của phòng thí nghiệm Bell và nhanh chóng hội nhập vào thế giới lập trình để rồi các công ty lập trình sử dụng một cách rộng rãi. Sau đó, các công ty sản xuất phần mềm lần lượt đưa ra các phiên bản hỗ trợ cho việc lập trình bằng ngôn ngữ C và chuẩn ANSI C cũng được khai sinh từ đó.</para>
+      <para id="id5928255">Ngôn ngữ lập trình C là một ngôn ngữ lập trình hệ thống rất mạnh và rất “mềm dẻo”, có một thư viện gồm rất nhiều các hàm (function) đã được tạo sẵn. Người lập trình có thể tận dụng các hàm này để giải quyết các bài toán mà không cần phải tạo mới. Hơn thế nữa, ngôn ngữ C hỗ trợ rất nhiều phép toán nên phù hợp cho việc giải quyết các bài toán kỹ thuật có nhiều công thức phức tạp. Ngoài ra, C cũng cho phép người lập trình tự định nghĩa thêm các kiểu dữ liệu trừu tượng khác. Tuy nhiên, điều mà người mới vừa học lập trình C thường gặp “rắc rối” là “hơi khó hiểu” do sự “mềm dẻo” của C. Dù vậy, C được phổ biến khá rộng rãi và đã trở thành một công cụ lập trình khá mạnh, được sử dụng như là một ngôn ngữ lập trình chủ yếu trong việc xây dựng những phần mềm hiện nay.</para>
+      <para id="id5928295">Ngôn ngữ C có những đặc điểm cơ bản sau:</para>
+      <list id="id5928302" list-type="bulleted">
+        <item>Tính cô đọng (compact): C chỉ có 32 từ khóa chuẩn và 40 toán tử chuẩn, nhưng hầu hết đều được biểu diễn bằng những chuỗi ký tự ngắn gọn.</item>
+        <item>Tính cấu trúc (structured): C có một tập hợp những chỉ thị của lập trình như cấu trúc lựa chọn, lặp… Từ đó các chương trình viết bằng C được tổ chức rõ ràng, dễ hiểu.</item>
+        <item>Tính tương thích (compatible): C có bộ tiền xử lý và một thư viện chuẩn vô cùng phong phú nên khi chuyển từ máy tính này sang máy tính khác các chương trình viết bằng C vẫn hoàn toàn tương thích.</item>
+        <item>Tính linh động (flexible): C là một ngôn ngữ rất uyển chuyển và cú pháp, chấp nhận nhiều cách thể hiện, có thể thu gọn kích thước của các mã lệnh làm chương trình chạy nhanh hơn.</item>
+        <item>Biên dịch (compile): C cho phép biên dịch nhiều tập tin chương trình riêng rẽ thành các tập tin đối tượng (object) và liên kết (link) các đối tượng đó lại với nhau thành một chương trình có thể thực thi được (executable) thống nhất.</item>
+      </list>
+    </section>
+    <section id="id-193370131863">
+      <title>MÔI TRƯỜNG LẬP TRÌNH TURBO C</title>
+      <para id="id5928419">Turbo C là môi trường hỗ trợ lập trình C do hãng Borland cung cấp. Môi trường này cung cấp các chức năng như: soạn thảo chương trình, dịch, thực thi chương trình… Phiên bản được sử dụng ở đây là Turbo C 3.0.</para>
+      <section id="id-42225310371">
+        <title>Gọi Turbo C</title>
+        <para id="id5928443">Chạy Turbo C cũng giống như chạy các chương trình khác trong môi trường DOS hay Windows, màn hình sẽ xuất hiện menu của Turbo C có dạng như sau:</para>
+        <figure id="id5928460">
+          <media id="id1172473904179" alt=""><image src="../../media/graphics1-caa9.png" mime-type="image/png" height="279" width="550"/></media>
+        </figure>
+        <para id="id5928484">Dòng trên cùng gọi là thanh menu (menu bar). Mỗi mục trên thanh menu lại có thể có nhiều mục con nằm trong một menu kéo xuống. </para>
+        <para id="id5928493">Dòng dưới cùng ghi chức năng của một số phím đặc biệt. Chẳng hạn khi gõ phím F1 thì ta có được một hệ thống trợ giúp mà ta có thể tham khảo nhiều thông tin bổ ích.</para>
+        <para id="id5928508">Muốn vào thanh menu ngang ta gõ phím F10. Sau đó dùng các phím mũi tên qua trái hoặc phải để di chuyển vùng sáng tới mục cần chọn rồi gõ phím Enter. Trong menu kéo xuống ta lại dùng các phím mũi tên lên xuống để di chuyển vùng sáng tới mục cần chọn rồi gõ Enter.</para>
+        <para id="id5928525">Ta cũng có thể chọn một mục trên thanh menu bằng cách giữ phím Alt và gõ vào một ký tự đại diện của mục đó (ký tự có màu sắc khác với các ký tự khác). Chẳng hạn để chọn mục File ta gõ Alt-F (F là ký tự đại diện của File)</para>
+      </section>
+      <section id="id-0576553784052">
+        <title>Soạn thảo chương trình mới </title>
+        <para id="id5928555">Muốn soạn thảo một chương trình mới ta chọn mục New trong menu File (File -&gt;New) </para>
+        <para id="id5928565">Trên màn hình sẽ xuất hiện một vùng trống để cho ta soạn thảo nội dung của chương trình. Trong quá trình soạn thảo chương trình ta có thể sử dụng các phím sau:</para>
+        <para id="id5928579">Các phím xem thông tin trợ giúp:</para>
+        <para id="id5928592">- F1: Xem toàn bộ thông tin trong phần trợ giúp.</para>
+        <para id="id5928601">- Ctrl-F1: Trợ giúp theo ngữ cảnh (tức là khi con trỏ đang ở trong một từ nào đo, chẳng hạn int mà bạn gõ phím Ctrl-F1 thì bạn sẽ có được các thông tin về kiểu dữ liệu int)</para>
+        <para id="id5928615">Các phím di chuyển con trỏ trong vùng soạn thảo chương trình:</para>
+        <table id="id5928629" summary="">
+          <tgroup cols="3">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <tbody>
+              <row>
+                <entry>Phím</entry>
+                <entry>Ý nghĩa</entry>
+                <entry>Phím tắt ( tổ hợp phím)</entry>
+              </row>
+              <row>
+                <entry>Enter</entry>
+                <entry>Đưa con trỏ xuống dòng</entry>
+                <entry/>
+              </row>
+              <row>
+                <entry>Mũi tên đi lên</entry>
+                <entry>Đưa con trỏ lên hàng trước</entry>
+                <entry>Ctrl-E</entry>
+              </row>
+              <row>
+                <entry>Mũi tên đi xuống</entry>
+                <entry>Đưa con trỏ xuống hàng sau</entry>
+                <entry>Ctrl-X</entry>
+              </row>
+              <row>
+                <entry>Mũi tên sang trái</entry>
+                <entry>Đưa con trỏ sang trái một ký tự</entry>
+                <entry>Ctrl-S</entry>
+              </row>
+              <row>
+                <entry>Mũi tên sang phải</entry>
+                <entry>Đưa con trỏ sang phải một ký tự</entry>
+                <entry>Ctrl-D</entry>
+              </row>
+              <row>
+                <entry>End</entry>
+                <entry>Đưa con trỏ đến cuối dòng</entry>
+                <entry/>
+              </row>
+              <row>
+                <entry>Home</entry>
+                <entry>Đưa con trỏ đến đầu dòng</entry>
+                <entry/>
+              </row>
+              <row>
+                <entry>PgUp</entry>
+                <entry>Đưa con trỏ lên trang trước</entry>
+                <entry>Ctrl-R</entry>
+              </row>
+              <row>
+                <entry>PgDn</entry>
+                <entry>Đưa con trỏ xuống trang sau</entry>
+                <entry>Ctrl-C</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Đưa con trỏ sang từ bên trái</entry>
+                <entry>Ctrl-A</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Đưa con trỏ sang từ bên phải</entry>
+                <entry>Ctrl-F</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id6443303">Các phím xoá ký tự/ dòng: </para>
+        <table id="id6443316" summary="">
+          <tgroup cols="3">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <tbody>
+              <row>
+                <entry>Phím</entry>
+                <entry>Ý nghĩa</entry>
+                <entry>Phím tắt</entry>
+              </row>
+              <row>
+                <entry>Delete</entry>
+                <entry>Xoá ký tự tại ví trí con trỏ</entry>
+                <entry>Ctrl-G</entry>
+              </row>
+              <row>
+                <entry>BackSpace</entry>
+                <entry>Di chuyển sang trái đồng thời xoá ký tự đứng trước con trỏ</entry>
+                <entry>Ctrl-H</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Xoá một dòng chứa con trỏ</entry>
+                <entry>Ctrl-Y</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Xóa từ vị trí con trỏ đến cuối dòng</entry>
+                <entry>Ctrl-Q-Y</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Xóa ký tự bên phải con trỏ</entry>
+                <entry>Ctrl-T</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id6443528">Các phím chèn ký tự/ dòng: </para>
+        <table id="id6443541" summary="">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <tbody>
+              <row>
+                <entry>Insert</entry>
+                <entry>Thay đổi viết xen hay viết chồng</entry>
+              </row>
+              <row>
+                <entry>Ctrl-N </entry>
+                <entry>Xen một dòng trống vào trước vị trí con trỏ</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id6443609">Sử dụng khối :</para>
+        <para id="id6443628">Khối là một đoạn văn bản chương trình hình chữ nhật được xác định bởi đầu khối là góc trên bên trái và cuối khối là góc dưới bên phải của hình chữ nhật. Khi một khối đã được xác định (trên màn hình khối có màu sắc khác chỗ bình thường) thì ta có thể chép khối, di chuyển khối, xoá khối... Sử dụng khối cho phép chúng ta soạn thảo chương trình một cách nhanh chóng. sau đây là các thao tác trên khối:</para>
+        <table id="id6443646" summary="">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <tbody>
+              <row>
+                <entry>Phím tắt</entry>
+                <entry>Ý nghĩa</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-B</entry>
+                <entry>Đánh dấu đầu khối</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-K</entry>
+                <entry>Đánh dấu cuối khối</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-C</entry>
+                <entry>Chép khối vào sau vị trí con trỏ</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-V</entry>
+                <entry>Chuyển khối tới sau vị trí con trỏ</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-Y</entry>
+                <entry>Xoá khối</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-W</entry>
+                <entry>Ghi khối vào đĩa như một tập tin</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-R</entry>
+                <entry>Đọc khối (tập tin) từ đĩa vào sau vị trí con trỏ</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-H</entry>
+                <entry>Tắt/mở khối </entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-T</entry>
+                <entry>Đánh dấu từ chứa chon trỏ</entry>
+              </row>
+              <row>
+                <entry>Ctrl-K-P</entry>
+                <entry>In một khối</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id5918072">Các phím, phím tắt thực hiện các thao tác khác:</para>
+        <table id="id5918085" summary="">
+          <tgroup cols="3">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <tbody>
+              <row>
+                <entry>Phím</entry>
+                <entry>Ý nghĩa</entry>
+                <entry>Phím tắt</entry>
+              </row>
+              <row>
+                <entry>F10</entry>
+                <entry>Kích hoạt menu chính</entry>
+                <entry>Ctrl-K-D, Ctrl-K-Q</entry>
+              </row>
+              <row>
+                <entry>F2</entry>
+                <entry>Lưu chương trình đang soạn vào đĩa</entry>
+                <entry>Ctrl-K-S</entry>
+              </row>
+              <row>
+                <entry>F3</entry>
+                <entry>Tạo tập tin mới</entry>
+                <entry/>
+              </row>
+              <row>
+                <entry>Tab</entry>
+                <entry>Di chuyển con trỏ một khoảng đồng thời đẩy dòng văn bản</entry>
+                <entry>Ctrl-I</entry>
+              </row>
+              <row>
+                <entry>ESC</entry>
+                <entry>Hủy bỏ thao tác lệnh</entry>
+                <entry>Ctrl-U</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Đóng tập tin hiện tại</entry>
+                <entry>Alt-F3</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Hiện hộp thoại tìm kiếm</entry>
+                <entry>Ctrl-Q-F</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Hiện hộp thoại tìm kiếm và thay thế</entry>
+                <entry>Ctrl-Q-A</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>Tìm kiếm tiếp tục</entry>
+                <entry>Ctrl-L</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id5918420">Ví dụ: Bạn hãy gõ đoạn chương trình sau:</para>
+        <para id="id5918433">#include &lt;stdio.h&gt;</para>
+        <para id="id5918438">#include&lt;conio.h&gt;</para>
+        <para id="id5918445">int main ()</para>
+        <para id="id5918452">{</para>
+        <para id="id5918456">char ten[50];</para>
+        <para id="id5918462">printf(“Xin cho biet ten cua ban !”);</para>
+        <para id="id5918469">scanf(“%s”,ten);</para>
+        <para id="id5918475">printf(“Xin chao ban %s”,ten);</para>
+        <para id="id5918481">getch();</para>
+        <para id="id5918487">return 0;</para>
+        <para id="id5918492">}</para>
+      </section>
+      <section id="id-948287237761">
+        <title>Ghi chương trình đang soạn thảo vào đĩa</title>
+        <para id="id5918506">Sử dụng File/Save hoặc gõ phím F2. Có hai trường hợp xảy ra:</para>
+        <para id="id5918516">- Nếu chương trình chưa được ghi lần nào thì một hội thoại sẽ xuất hiện cho phép bạn xác định tên tập tin (FileName). Tên tập tin phải tuân thủ quy cách đặt tên của DOS và không cần có phần mở rộng (sẽ tự động có phần mở rộng là .C hoặc .CPP sẽ nói thêm trong phần Option). Sau đó gõ phím Enter.</para>
+        <para id="id5918533">- Nếu chương trình đã được ghi một lần rồi thì nó sẽ ghi những thay đổi bổ sung lên tập tin chương trình cũ.</para>
+        <para id="id5918545">Chú ý: Để đề phòng mất điện trong khi soạn thảo chương trinh thỉnh thoảng bạn nên gõ phím F2.</para>
+        <para id="id5918557">Quy tắc đặt tên tập tin của DOS: Tên của tập tin gồm 2 phần: Phần tên và phần mở rộng. </para>
+        <list id="id5918576" list-type="bulleted">
+          <item>Phần tên của tập tin phải bắt đầu là 1 ký tự từ a..z (không phân biệt hoa thường), theo sau có thể là các ký tự từ a..z, các ký số từ 0..9 hay dấu gạch dưới (_), phần này dài tối đa là 8 ký tự.</item>
+          <item>Phần mở rộng: phần này dài tối đa 3 ký tự.</item>
+        </list>
+        <para id="id5918608">Ví dụ: Ghi chương trình vừa soạn thảo trên lên đĩa với tên là CHAO.C</para>
+      </section>
+      <section id="id-12275801476">
+        <title>Thực hiện chương trình</title>
+        <para id="id5918638">Để thực hiện chương trình hãy dùng Ctrl-F9 (giữ phím Ctrl và gõ phím F9).</para>
+        <para id="id5918647">Ví dụ: Thực hiện chương trình vừa soạn thảo xong và quan sát trên màn hình để thấy kết quả của việc thực thi chương trình sau đó gõ phím bất kỳ để trở lại với Turbo.</para>
+      </section>
+      <section id="id-762384869231">
+        <title>Mở một chương trình đã có trên đĩa</title>
+        <para id="id5918675">Với một chương trình đã có trên đĩa, ta có thể mở nó ra để thực hiện hoặc sửa chữa bổ sung. Để mở một chương trình ta dùng File/Open hoặc gõ phím F3. Sau đó gõ tên tập tin vào hộp File Name hoặc lựa chọn tập tin trong danh sách các tập tin rồi gõ Enter.</para>
+        <para id="id5918693">Ví dụ: Mở tập tin CHAO.C sau đó bổ sung để có chương trình mới như sau:</para>
+        <para id="id5918707">#include &lt;stdio.h&gt;</para>
+        <para id="id5918712">#include&lt;conio.h&gt;</para>
+        <para id="id5918717">int main ()</para>
+        <para id="id5918721">{</para>
+        <para id="id5918725">char ten[50];</para>
+        <para id="id5918731">printf(“Xin cho biet ten cua ban !”);</para>
+        <para id="id5918737">scanf(“%s”,ten);</para>
+        <para id="id5918743">printf(“Xin chao ban %s\n ”,ten);</para>
+        <para id="id5918750">printf(“Chao mung ban den voi Ngon ngu lap trinh C”);</para>
+        <para id="id5918757">getch();</para>
+        <para id="id5918763">return 0;</para>
+        <para id="id5918768">}</para>
+        <para id="id5918772">Ghi lại chương trình này (F2) và cho thực hiện (Ctrl-F9). Hãy so sánh xem có gì khác trước?</para>
+      </section>
+      <section id="id-0451197539988">
+        <title>Thoát khỏi Turbo C và trở về DOS (hay Windows)</title>
+        <para id="id5918793">Dùng File/Exit hoặc Alt-X. </para>
+      </section>
+      <section id="id-471048390301">
+        <title>Sử dụng một số lệnh trên thanh menu</title>
+        <section id="id-243349813359">
+          <title>Các lệnh trên menu File (Alt -F)</title>
+          <para id="id5918816">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      - Lệnh New : Dùng để tạo mới một chương trình. Tên ngầm định của chương trình là NONAMEXX.C (XX là 2 số từ 00 đến 99).</para>
+          <para id="id6565394">- Lệnh Open : Dùng để mở một chương trình đã có sẵn trên đĩa để sửa chữa, bổ sung hoặc để thực hiện chương trình đó. Khi tập tin được mở thì văn bản chương trình được trình bày trong vùng soạn thảo; hộp thoại Open như sau:</para>
+          <figure id="id6565423">
+            <media id="id1172480016340" alt=""><image src="../../media/graphics2-85a7.png" mime-type="image/png" height="274" width="451"/></media>
+          </figure>
+          <para id="id6565447">Trong trường hợp ta nhập vào tên tập tin chưa tồn tại thì chương trình được tạo mới và sau này khi ta lưu trữ, chương trình được lưu với tên đó.</para>
+          <para id="id6565458">- Lệnh Save : Dùng để lưu chương trình đang soạn thảo vào đĩa.</para>
+          <para id="id6565477">- Lệnh Save as... : Dùng để lưu chương trình đang soạn thảo với tên khác, hộp thoại lưu tập tin đang soạn với tên khác như sau:</para>
+          <figure id="id6565501">
+            <media id="id1172474322417" alt=""><image src="../../media/graphics3-a022.png" mime-type="image/png" height="306" width="600"/></media>
+          </figure>
+          <para id="id6565525">- Lệnh : Save All: Trong lúc làm việc với Turbo C, ta có thể mở một lúc nhiều chương trình để sửa chữa, bổ sung. Lệnh Save All dùng để lưu lại mọi thay đổi trên tất cả các chương trình đang mở ấy..</para>
+          <para id="id6565549">- Lệnh Change Dir ... : Dùng để đổi thư mục hiện hành</para>
+          <figure id="id6565570">
+            <media id="id3301957" alt=""><image src="../../media/graphics4-69e7.png" mime-type="image/png" height="225" width="374"/></media>
+          </figure>
+          <para id="id6565594">- Lệnh Print : Dùng để in chương trình đang soạn thảo ra máy in.</para>
+          <para id="id6565613">- Lệnh Printer Setup ...: Dùng để thiết đặt một số thông số cho máy in.</para>
+          <para id="id6565632">- Lệnh Dos Shell : Dùng để thoát tạm thời về Dos, để trở lại Turbo C ta đánh EXIT.</para>
+          <para id="id6565652">- Lệnh Exit : Dùng để thoát khỏi C.</para>
+        </section>
+        <section id="id-216087001516">
+          <title>Các lệnh trên menu Edit (Alt -E) </title>
+          <para id="id6565680">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      - Lệnh Undo : Dùng để hủy bỏ thao tác soạn thảo cuối cùng trên cửa số soạn thảo.</para>
+          <para id="id6565728">- Lệnh Redo : Dùng để phục hồi lại thao tác đã bị Undo cuối cùng.</para>
+          <para id="id6565738">- Lệnh Cut : Dùng để xóa một phần văn bản đã được đánh dấu khối, phần dữ liệu bị xóa sẽ được lưu vào một vùng nhớ đặc biệt gọi là Clipboard.</para>
+          <para id="id6565760">- Lệnh Copy : Dùng để chép phần chương trình đã được đánh dấu khối vào Clipboard.</para>
+          <para id="id6565771">- Lệnh Paste : Dùng để dán phần chương trình đang được lưu trong Clipboard vào của số đang soạn thảo, bắt đầu tại vị trí của con trỏ.</para>
+          <para id="id6565784">- Lệnh Clear : Dùng để xóa phần dữ liệu đã được đánh dấu khối, dữ liệu bị xóa không được lưu vào Clipboard.</para>
+          <para id="id6565796">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      - Lệnh Show clipboard : Dùng để hiển thị phần chương trình đang được lưu trong Clipboard trong một cửa sổ mới.</para>
+        </section>
+        <section id="id-871952512202">
+          <title>Các lệnh trên menu Search (Alt -S)</title>
+          <list id="id6565863" list-type="bulleted">
+            <item>Lệnh Find ...: Dùng để tìm kiếm một cụm từ trong văn bản chương trình. Nếu tìm thấy thì con trỏ sẽ di chuyển đến đoạn văn bản trùng với cụm từ cần tìm; hộp thoại Find như sau: </item>
+            <item>
+              <figure id="id6565895">
+                <media id="id6989871" alt=""><image src="../../media/graphics5-afe2.png" mime-type="image/png" height="191" width="568"/></media>
+              </figure>
+            </item>
+          </list>
+          <para id="id6565919">Ý nghĩa các lựa chọn trong hộp thoại trên như sau:</para>
+          <list id="id6565932" list-type="bulleted">
+            <item>Case sentitive : Phân biệt chữ IN HOA với chữ in thường trong khi so sánh cụm từ cần tìm với văn bản chương trình.</item>
+            <item>Whole word only: Một đoạn văn bản chương trình trùng với toàn bộ cụm từ cần tìm thì mới được xem là tìm thấy.</item>
+            <item>Regular expression: Tìm theo biểu thức</item>
+            <item>Global:Tìm trên tất cả tập tin.</item>
+            <item>Forward : Tìm đến cuối tập tin.</item>
+            <item>Selected text: Chỉ tìm trong khối văn bản đã được đánh dấu.</item>
+            <item>Backward: Tìm đến đầu tập tin.</item>
+            <item>From cursor : Bắt đầu từ vị trí con nháy.</item>
+            <item>Entire scope: Bắt đầu tại vị trí đầu tiên của khối hoặc tập tin.</item>
+          </list>
+          <para id="id6566027">- Lệnh Replace...: Dùng để tìm kiếm một đoạn văn bản nào đó, và tự động thay bằng một đoạn văn bản khác, hộp thoại replace như sau:</para>
+          <para id="id6566048">Tìm các cụm từ Scanf và thay thế bằng scanf
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+          <para id="id6566100">- Lệnh Search again : Dùng để thực hiện lại việc tìm kiếm.</para>
+          <para id="id6566118">- Các lệnh còn lại trên menu Search, các bạn sẽ tìm hiểu thêm khi thực hành trực tiếp trên máy tính.</para>
+          <para id="id6566127">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      Các lệnh trên menu Run (Alt -R)</para>
+          <para id="id6566162">- Lệnh Run : Dùng để thực thi hay "chạy" một chương trình.</para>
+          <para id="id6566180">- Lệnh Step over : Dùng để "chạy" chương trình từng bước. </para>
+          <para id="id5931004">- Lệnh Trace into : Dùng để chạy chương trình từng bước. Khác với lệnh Step over ở chỗ: Lệnh Step over không cho chúng ta xem từng bước "chạy" trong chương trình con, còn lệnh Trace into cho chúng ta xem từng bước trong chương trình con.</para>
+          <para id="id5931038">- Các lệnh còn lại, các bạn sẽ tìm hiểu thêm khi thực hành trên máy. </para>
+          <para id="id5931045">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      Các lệnh trên menu Compile (Alt C)</para>
+          <para id="id5931079">- Lệnh Complie: Biên dịch một chương trình. </para>
+          <para id="id5931097">- Lệnh Make , Build, … : Các lệnh này bạn sẽ tìm hiểu thêm khi thực hành trực tiếp trên máy tính.</para>
+          <para id="id5931128">- Lệnh Information : Dùng để hiện thị các thông tin về chương trình, Mode, môi trường .</para>
+          <para id="id5931148">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      Các lệnh trên menu Debug (Alt-D) </para>
+          <para id="id5931182">Trên menu Debug bao gồm một số lệnh giúp người lập trình "gỡ rối" chương trình . Người lập trình sử dụng chức năng "gỡ rối" khi gặp một số "lỗi" về thuật toán, sử dụng biến nhớ…</para>
+          <para id="id5931198">- Lệnh Breakpoints: Dùng để đặt "điểm dừng" trong chương trình. Khi chương trình thực thi đến "điểm dừng thì nó sẽ dừng lại" .</para>
+          <para id="id5931221">- Lệnh Watch : Dùng để mở một cửa sổ hiển thị kết quả trung gian của một biến nhớ nào đó khi chạy chương trình từng bước.</para>
+          <para id="id5931243">- Lệnh Evaluate/Modify: Bạn sẽ tìm hiểu khi thực hành trực tiếp trên máy.</para>
+          <para id="id5931261">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      Các lệnh trên menu Project (Alt- P) </para>
+          <para id="id5931297">Trên menu Project bao gồm các lệnh liên quan đến dự án như : đóng, mở, thêm , xóa các mục,…</para>
+          <para id="id5931305">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      Các lệnh trên menu Option (Alt -O) </para>
+          <para id="id5931340">Trên menu Option bao gồm các lệnh giúp người lập trình thiết đặt một số tự chọn khi chạy chương trình. Thông thường, người lập trình không cần phải thiết đặt lại các tự chọn. </para>
+          <para id="id5931355">- Lệnh Compiler ...: Dùng để thiết đặt lại một số thông số khi biên dịch chương trình như hình sau</para>
+          <para id="id5931376">Phần trình bày dưới đây thuộc về 3 mục: Directories, Enviroment và Save; các phần khác sinh viên tự tìm hiểu.</para>
+          <para id="id5931385">- Lệnh Directories...: Dùng để đặt lại đường dẫn tìm đến các tập tin cần thiết khi biên dịch chương trình như hình sau:</para>
+          <para id="id5931405">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+          <list id="id5931432" list-type="bulleted">
+            <item>Include directory: Thư mục chứa các tập tin mà chúng ta muốn đưa vào chương trình (các tập tin .h trong dòng #include).</item>
+            <item>Library directory : Thư mục chứa các tập tin thư viện ( các tập tin .Lib) </item>
+            <item>Output directory: Thư mục chứa các tập tin “đối tượng “ (có phần mở rộng là .OBJ), tập tin thực thi (.exe) khi biên dịch chương trình.</item>
+            <item>Source directory: Thư mục chứa các tập tin “nguồn” (có phần mở rộng là .obj, .lib). </item>
+          </list>
+          <para id="id5931489">- Lệnh Environment: dùng để thiết lập môi trường làm việc như:</para>
+          <list id="id5931499" list-type="bulleted">
+            <item>Reference…: Các tham chiếu.</item>
+            <item>Editor: Môi trường soạn thảo gồm: tạo tập tin dự phòng khi có sự chỉnh sửa (create backup file), chế độ viết đè (insert mode), tự động thụt đầu dòng (indent), đổi màu từ khóa (Syntax highlighting)… Đặc biệt, trong phần này là thiết lập phần mở rộng mặc định (Default Extension) của tập tin chương trình là C hay CPP (C Plus Plus: C++).</item>
+          </list>
+          <para id="id5931527">
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+          <list id="id5931554" list-type="bulleted">
+            <item>Mouse...: Đặt chuột.</item>
+            <item>Colors…: Đặt màu.</item>
+          </list>
+        </section>
+        <section id="id-874317664141">
+          <title>Các lệnh trên menu Window (Alt- W)</title>
+          <para id="id5931584">Trên menu Window bao gồm các lệnh thao tác đến cửa sổ như: </para>
+          <para id="id5931594">- Lệnh Cascade : Dùng để sắp xếp các cửa sổ.</para>
+          <para id="id5931603">- Lệnh Close all : Dùng để đóng tất cả các cửa sổ.</para>
+          <para id="id5931615">- Lệnh Zoom: Dùng để phóng to/ thu nhỏ cửa sổ.</para>
+          <para id="id5931625">- Các lệnh Tile, Refresh display, Size/ Move, Next, Previous, Close, List...: Các bạn sẽ tìm hiểu thêm khi thực hành trực tiếp trên máy tính.</para>
+        </section>
+        <section id="id-746565505091">
+          <title>II.7.10. Các lệnh trên menu Help (Alt- H)</title>
+          <para id="id5931644">Trên menu Help bao gồm các lệnh gọi trợ giúp khi người lập trình cần giúp đỡ một số vấn đề nào đó như: Cú pháp câu lệnh, cách sử dụng các hàm có sẵn…</para>
+          <para id="id5931660">- Lệnh Contents: Hiện thị toàn bộ nội dung của phần help.</para>
+          <para id="id5931667">- Lệnh Index : Hiển thị bảng tìm kiếm theo chỉ mục.</para>
+          <para id="id5931673">- Các lệnh còn lại, bạn sẽ tìm hiểu khi thực hành trên máy.</para>
+        </section>
+      </section>
+    </section>
+  </content>
+</document>

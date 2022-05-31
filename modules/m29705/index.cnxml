@@ -1,0 +1,940 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Giới thiệu học phần Lập Trình Hệ Thống</title>
+  <metadata>
+  <md:content-id>m29705</md:content-id><md:title>Giới thiệu học phần Lập Trình Hệ Thống</md:title>
+  <md:abstract/>
+  <md:uuid>eba942b9-83fa-40d3-8bf7-2524be29c889</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-725949240028">
+      <title>Chương 1 TỔ CHỨC BỘ XỬ LÝ INTEL-8086</title>
+      <section id="id-322094619155">
+        <title>Mục đích:</title>
+        <para id="id34140944">- Cấu trúc bên trong CPU Intel-8086</para>
+        <para id="id34140949">- Tập thanh ghi</para>
+        <para id="id34140954">- Tổ chức bộ nhớ và dữ liệu</para>
+        <para id="id31573385">- Khái quát các bộ xử lý Intel khác như: 80386, 80486, Pentium</para>
+      </section>
+      <section id="id-0821118096844">
+        <title>1.1. BỘ XỬ LÝ INTEL-8086 (CPU-8086)</title>
+        <section id="id-707276303193">
+          <title>1.1.1. Cấu trúc tổng quát</title>
+          <para id="id33190794">Intel-8086 là một CPU 16 bit (bus dữ liệu ngoại có 16 dây). Nó được dùng để chế tạo các máy vi tính PC-AT đầu tiên của hãng IBM vào năm 1981. Trong thực tế, hãng IBM đã dùng CPU 8088 (là một dạng của CPU 8086 với bus số liệu giao tiếp với ngoại vi là 8 bit) để chế tạo máy vi tính cá nhân đầu tiên gọi là PC-XT.</para>
+          <para id="id33190809">Cho đến nay CPU 8086 đã không ngừng cải tiến và đã trải qua các phiên bản 80186, 80286, 80386, 80486, Pentium (80586), Pentium Pro, Pentium MMX, Pentium II, III, 4. Các CPU trên tương thích từ trên xuống (downward compatible) nghĩa là tập lệnh của các CPU mới chế tạo gồm các tập lệnh của CPU chế tạo trưóc đó được bổ sung thêm nhiều lệnh mạnh khác.</para>
+          <para id="id33190814">Cấu trúc tổng quát của CPU-8086 có dạng như hình 1.1, gồm 2 bộ phận chính là: Bộ thực hiện lệnh và bộ phận giao tiếp bus.</para>
+          <para id="id34280482">1. Bộ phận thực hiện lệnh (EU): </para>
+          <para id="id33387348">Thi hành các tác vụ mà lệnh yêu cầu như: Kiểm soát các thanh ghi (đọc/ghi), giải mã và thi hành lệnh. Trong EU có bộ tính toán và luận lý (ALU) thực hiện được các phép toán số học và luận lý. Các thanh ghi đa dụng là các ô nhớ bên trong CPU chứa dữ liệu tương tự như ô nhớ trong bộ nhớ. Cờ cũng là một thanh ghi dùng để ghi lại trạng thái hoạt động của ALU. Thanh ghi lệnh chứa nội dung lệnh hiện tại mà CPU đang thực hiện. </para>
+          <para id="id33387362">Các thanh ghi và bus trong EU đều là 16 bit. EU không kết nối trực tiếp với bus hệ thống bên ngoài. Nó lấy lệnh từ hàng chờ lệnh mà BIU cung cấp. Khi có yêu cầu truy xuất bộ nhớ hay ngoại vi thì EU yêu cầu BIU làm việc. BIU có thể tái định địa chỉ để cho phép EU truy xuất đầy đủ 1 MB (8086 có 20 đường địa chỉ ngoại).</para>
+          <para id="id33387367">2. Bộ giao tiếp bus (BIU): </para>
+          <para id="id33593844">BIU thực hiện chức năng giao tiếp giữa EU với bên ngoài (Bộ nhớ, thiết bị ngoại vi …) thông qua hệ thống BUS ngoại (bus dữ liệu và bus địa chỉ). BIU thực hiện tất cả các tác vụ về bus mỗi khi EU có yêu cầu. Khi EU cần trao đổi dữ liệu với bên ngoài, BIU sẽ tính toán địa chỉ và truy xuất dữ liệu để phục vụ theo yêu cầu EU. </para>
+          <para id="id33593848">Trong BIU có 5 thanh ghi CS, DS, ES, SS và IP chứa địa chỉ. Thanh ghi IP chứa địa chỉ của lệnh sẽ được thi hành kế tiếp nên gọi là con trỏ lệnh.</para>
+          <para id="id33645920">EU và BIU liên lạc với nhau thông qua hệ thống bus nội. Trong khi EU đang thực hiện lệnh thì BIU lấy lệnh từ bộ nhớ trong nạp đầy vào hàng chờ lệnh (6 bytes). Do đó EU không phải đợi lấy lệnh từ bộ nhớ. Đây là một dạng đơn giản của cache để tăng tốc độ đọc lệnh.</para>
+          <figure id="id33387328">
+            <media id="id4462482" alt=""><image src="graphics1.wmf" mime-type="image/wmf" height="515" width="436"/></media>
+          </figure>
+          <para id="id33190833">Hình 1.1: Sơ đồ khối của CPU 8086</para>
+        </section>
+        <section id="id-202909670533">
+          <title>1.1.2. Các thanh ghi của 8086</title>
+          <para id="id34993276">Thanh ghi (register) là thành phần lưu trữ dữ liệu bên trong CPU, mỗi thanh ghi có độ dài nhất định (16 bit hoặc 8 bit) và được nhận biết bằng một tên riêng. Tùy vào độ dài và chức năng mà thanh ghi có công dụng chứa dữ liệu hoặc kết quả của phép toán, hoặc là các địa chỉ dùng để định vị bộ nhớ khi cần thiết.</para>
+          <para id="id34993292">Nội dung của thanh ghi được truy xuất thông qua tên riêng của nó, do đó tên thanh ghi là từ khóa quan trọng cần phải lưu ý trong lập trình.</para>
+          <para id="id32782514">CPU-8086 có 16 thanh ghi, mỗi thanh ghi là 16 bit, có thể chia 4 nhóm sau:</para>
+          <list id="id32782525" list-type="enumerated">
+            <item>Thanh ghi đoạn: Gồm 4 thanh ghi 16 bit: CS, DS, ES, SS. Đây là những thanh ghi dùng để chứa địa chỉ đoạn của các ô nhớ khi cần truy xuất. Mỗi thanh ghi đoạn quản lý 1 đoạn tối đa 64K ô nhớ trong bộ nhớ trong. Người sử dụng chỉ được phép truy xuất ô nhớ dựa vào địa chỉ tương đối. CPU (cụ thể là BIU) có nhiệm vụ chuyển đổi địa chỉ tương đối thành địa chỉ tuyệt đối để truy xuất vào ô nhớ tuyệt đối tương ứng trong bộ nhớ. (Xem phần tổ chức bộ nhớ)</item>
+          </list>
+          <para id="id33592549">CS: Thanh ghi đoạn mã lệnh, lưu địa chỉ đoạn chứa mã lệnh chương trình của người sử dụng</para>
+          <para id="id31577352">DS: Thanh ghi đoạn dữ liệu, lưu địa chỉ đoạn chứa dữ liệu (các biến) trong chương trình.</para>
+          <para id="id31573046">ES: Thanh ghi đoạn dữ liệu thêm, lưu địa chỉ đoạn chứa dữ liệu thêm trong chương trình.</para>
+          <para id="id31573058">SS: Thanh ghi đoạn ngăn xếp, lưu địa chỉ đoạn của vùng ngăn xếp.</para>
+          <table id="id34019227" summary="">
+            <tgroup cols="2">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <tbody>
+                <row>
+                  <entry>15 0</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>CS</entry>
+                  <entry>Code Segment</entry>
+                </row>
+                <row>
+                  <entry>DS</entry>
+                  <entry>Data Segment</entry>
+                </row>
+                <row>
+                  <entry>ES</entry>
+                  <entry>Extra data Segment</entry>
+                </row>
+                <row>
+                  <entry>SS</entry>
+                  <entry>Stack Segment</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id31537227">Thông thường bốn thanh ghi này có thể chứa những giá trị khác nhau, do đó chương trình có thể được truy cập trên bốn đoạn khác nhau và chương trình chỉ có thể truy cập cùng 1 lúc tối đa bốn đoạn. Mặc khác, đối với những chương trình nhỏ, chỉ sử dụng 1 đoạn duy nhất, khi đó cả bốn thanh ghi đều chứa cùng giá trị địa chỉ đoạn, gọi là đoạn chung.</para>
+          <list id="id31537232" list-type="enumerated">
+            <item>Thanh ghi đa dụng (General Register): Bao gồm bốn thanh ghi đa dụng 16 bit (AX, BX, CX, DX). Mỗi thanh ghi đa dụng có thể được sử dụng với nhiều mục đích khác nhau, tuy nhiên từng thanh ghi có công dụng riêng của nó.</item>
+          </list>
+          <table id="id33767783" summary="">
+            <tgroup cols="3">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <tbody>
+                <row>
+                  <entry>15 8</entry>
+                  <entry>7 0</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>AH</entry>
+                  <entry>AL</entry>
+                  <entry>AX (Accumulator)</entry>
+                </row>
+                <row>
+                  <entry>BH</entry>
+                  <entry>BL</entry>
+                  <entry>BX (Base register)</entry>
+                </row>
+                <row>
+                  <entry>CH</entry>
+                  <entry>CL</entry>
+                  <entry>CX (Count register)</entry>
+                </row>
+                <row>
+                  <entry>DH</entry>
+                  <entry>DL</entry>
+                  <entry>DX (Data register)</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33592647">AX : Là thanh ghi tích lũy cơ bản. Mọi tác vụ vào/ra đều dùng thanh ghi này, tác vụ dùng số liệu tức thời, một số tác vụ chuỗi ký tự và các lệnh tính toán đều dùng thanh AX.</para>
+          <para id="id34144672">BX: Thanh ghi nền dùng để tính toán địa chỉ ô nhớ.</para>
+          <para id="id32795882">CX: Là thanh ghi đếm, thường dùng để đếm số lần trong một lệnh vòng lặp hoặc lệnh xử lý chuổi ký tự.</para>
+          <para id="id32795895">DX: Thanh ghi dữ liệu, thường chứa địa chỉ của một số lệnh vào/ra, lệnh tính toán số học (kể cả lệnh nhân và chia).</para>
+          <para id="id34019207">Mỗi thanh ghi 16 bit có thể chia đôi thành 2 thanh ghi 8 bit. Do đó, CPU-8086 có 8 thanh ghi 8 bit là: AH, AL; BH, BL; CH, CL; DH, DL (thanh ghi AH và AL tương ứng với byte cao và byte thấp của thanh ghi AX, tương tự cho các thanh ghi 8 bit còn lại). </para>
+          <para id="id32795903">Ví dụ: AX = 1234h =&gt; AH = 12h, AL = 34h</para>
+          <list id="id32486457" list-type="enumerated">
+            <item>Thanh ghi con trỏ và chỉ số (Pointer &amp; Index register): Chức năng chung của nhóm thanh ghi này là chứa địa chỉ độ dời của ô nhớ trong vùng dữ liệu hay ngăn xếp. </item>
+          </list>
+          <para id="id32486478">SI : Thanh ghi chỉ số nguồn</para>
+          <para id="id35359552">DI : Thanh ghi chỉ số đích</para>
+          <para id="id35359561">BP: Thanh ghi con trỏ nền dùng để lấy số liệu từ ngăn xếp.</para>
+          <para id="id33124216">SP : Thanh ghi con trỏ ngăn xếp luôn chỉ vào đỉnh ngăn xếp.</para>
+          <table id="id33124226" summary="">
+            <tgroup cols="2">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <tbody>
+                <row>
+                  <entry>15 0</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>SI</entry>
+                  <entry>Source Index Reg.</entry>
+                </row>
+                <row>
+                  <entry>DI</entry>
+                  <entry>Destination Index Reg.</entry>
+                </row>
+                <row>
+                  <entry>BP</entry>
+                  <entry>Base Pointer Reg.</entry>
+                </row>
+                <row>
+                  <entry>SP</entry>
+                  <entry>Stack Pointer Reg.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33766977">SI và DI chứa địa chỉ độ dời của ô nhớ tương ứng trong đoạn có địa chỉ chứa trong DS hoặc ES (dữ liệu, còn gọi là Biến). Còn BP và SP chứa địa chỉ độ dời của ô nhớ tương ứng trong đoạn có địa chỉ chứa trong SS, dùng để thâm nhập số liệu trong ngăn xếp.</para>
+          <list id="id34141444" list-type="enumerated">
+            <item>Thanh ghi Đếm chương trình và thanh ghi trạng thái (Cờ): </item>
+          </list>
+          <table id="id33187621" summary="">
+            <tgroup cols="2">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <tbody>
+                <row>
+                  <entry>15 0</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>F</entry>
+                  <entry>Flag Register.</entry>
+                </row>
+                <row>
+                  <entry>IP</entry>
+                  <entry>Intrucstion Pointer Reg.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <list id="id35126508" list-type="bulleted">
+            <item>Thanh ghi con trỏ lệnh IP (còn gọi là PC – đếm chương trình) là thanh ghi 16 bit chứa địa chỉ của lệnh kế tiếp mà CPU sẽ thực hiện trong. Các lệnh của chương trình có địa chỉ đoạn trong CS.</item>
+            <item>Thanh ghi Cờ (F) dài 16 bit, mỗi bit là một cờ. Mỗi cờ có giá trị 1 (gọi là SET –Đặt) hoặc 0 (gọi là CLEAR – Xóa). Hình 1.2 mô tả 9 bit trong số 16 bit tương ứng với 9 cờ trạng thái (các bit còn lại dùng cho dự trữ mở rộng khi thiết kế các CPU khác)</item>
+          </list>
+          <para id="id33765326">Thanh ghi cờ được chia thành hai nhóm:</para>
+          <list id="id33765331" list-type="bulleted">
+            <item>Nhóm cờ điều khiển (bảng 1.1) bao gồm các cờ dùng để điều khiển sự hoạt động của CPU và giá trị của cờ được thiết lập bằng các lệnh phần mềm.</item>
+            <item>Nhóm cờ trạng thái (bảng 1.2) bao gồm các cờ phản ánh kết quả thực hiện lệnh cũng như trạng thái của CPU</item>
+          </list>
+          <table id="id32785279" summary="">
+            <tgroup cols="16">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <colspec colnum="4" colname="c4"/>
+              <colspec colnum="5" colname="c5"/>
+              <colspec colnum="6" colname="c6"/>
+              <colspec colnum="7" colname="c7"/>
+              <colspec colnum="8" colname="c8"/>
+              <colspec colnum="9" colname="c9"/>
+              <colspec colnum="10" colname="c10"/>
+              <colspec colnum="11" colname="c11"/>
+              <colspec colnum="12" colname="c12"/>
+              <colspec colnum="13" colname="c13"/>
+              <colspec colnum="14" colname="c14"/>
+              <colspec colnum="15" colname="c15"/>
+              <colspec colnum="16" colname="c16"/>
+              <tbody>
+                <row>
+                  <entry>15</entry>
+                  <entry>14</entry>
+                  <entry>13</entry>
+                  <entry>12</entry>
+                  <entry>11</entry>
+                  <entry>10</entry>
+                  <entry>9</entry>
+                  <entry>8</entry>
+                  <entry>7</entry>
+                  <entry>6</entry>
+                  <entry>5</entry>
+                  <entry>4</entry>
+                  <entry>3</entry>
+                  <entry>2</entry>
+                  <entry>1</entry>
+                  <entry>0</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                  <entry>O</entry>
+                  <entry>D</entry>
+                  <entry>I</entry>
+                  <entry>T</entry>
+                  <entry>S</entry>
+                  <entry>Z</entry>
+                  <entry/>
+                  <entry>A</entry>
+                  <entry/>
+                  <entry>P</entry>
+                  <entry/>
+                  <entry>C</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33593448"> Dự trữ</para>
+          <para id="id33124722">Hình 1.2: Cấu trúc thanh ghi Cờ</para>
+          <table id="id35108344" summary="">
+            <tgroup cols="3">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <tbody>
+                <row>
+                  <entry>KÝ HIỆU</entry>
+                  <entry>TÊN</entry>
+                  <entry>Ý NGHĨA</entry>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c3">Nhóm cờ điều khiển</entry>
+                </row>
+                <row>
+                  <entry>TF</entry>
+                  <entry>Bẩy (Trap)</entry>
+                  <entry>TF = 1: cho phép chương trình chạy từng bước</entry>
+                </row>
+                <row>
+                  <entry>IF</entry>
+                  <entry>Ngắt (Interrupt)</entry>
+                  <entry>IF = 1: cho phép ngắt phần cứng</entry>
+                </row>
+                <row>
+                  <entry>DF</entry>
+                  <entry>Hướng (Direction)</entry>
+                  <entry>DF = 1: thì SI và DI giảm 1 cho mỗi vòng lặp</entry>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c3">Nhóm cờ trạng thái</entry>
+                </row>
+                <row>
+                  <entry>CF</entry>
+                  <entry>Số giữ(Carry)</entry>
+                  <entry>CF = 1: khi có số nhớ hoặc mượn từ MSB trong phép cộng hoặc trừ.(Có tthể bị thay đổi theo lệnh ghi dịch và quay)</entry>
+                </row>
+                <row>
+                  <entry>PF</entry>
+                  <entry>Chẳn lẻ (Parity)</entry>
+                  <entry>PF = 1: khi byte thấp của thanh ghi kết quả một phép tính có số lượng bit 1 chẳn</entry>
+                </row>
+                <row>
+                  <entry>AF</entry>
+                  <entry>Số giữ phụ (Hafl)</entry>
+                  <entry>AF = 1: khi có nhớ hoặc mượn từ bit 3 trong phép cộng hoặc trừ. Dùng trong các lệnh với số BCD</entry>
+                </row>
+                <row>
+                  <entry>ZF</entry>
+                  <entry>Zero</entry>
+                  <entry>ZF = 1: khi kết quả của một phép tính bằng 0</entry>
+                </row>
+                <row>
+                  <entry>SF</entry>
+                  <entry>Dấu (Sign)</entry>
+                  <entry>SF = 1 khi kết quả phép tính là âm (MSB=1).SF = 0 khi kết quả dương (MSB=0)</entry>
+                </row>
+                <row>
+                  <entry>OF</entry>
+                  <entry>Tràn (Overflow)</entry>
+                  <entry>OF = 1: nếu kết quả vượt quá khả năng tính toán của CPU</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33191996">Bảng 1.1: Ý nghĩa cờ</para>
+        </section>
+        <section id="id-430954433852">
+          <title>1.1.3. Trạng thái tràn:</title>
+          <para id="id35115103">Trạng thái tràn có thể không xảy ra (nếu không tràn) hoặc xảy ra (nếu tràn có dấu, tràn không dấu, đồng thời tràn có dấu và không dấu). Nói chung là có 2 trạng thái tràn: Tràn không dấu và Tràn có dấu. </para>
+          <para id="id33588235">Lưu ý: Nếu một giá trị có MSB=1 (bit dấu) thì CPU luôn luôn cho đó là số có dấu.</para>
+          <para id="id31573415">a. Tràn không dấu: CF=1</para>
+          <para id="id31573421">Ví dụ: ADD AX, BX ; với AX = 0FFFFh, BX = 1</para>
+          <list id="id31573432" list-type="bulleted">
+            <item>Nếu xem đây là các số không dấu thì AX không đủ chứa kết quả nên TRÀN không dấu, vậy CF = 1</item>
+            <item>Nếu xem đây là các số có dấu thì kết quả sẽ là 0 (vì AX = -1) nên không tràn, do đó OF = 0</item>
+          </list>
+          <para id="id34876326">b. Tràn có dấu: OF = 1</para>
+          <para id="id34876334">Ví dụ: ADD AX, BX ; với AX = BX = 7FFFh = 32767</para>
+          <list id="id33428090" list-type="bulleted">
+            <item>Nếu xem đây là các số không dấu thì AX = 7FFFh + 7FFFh = 0FFFEh = 65534 nên không tràn.</item>
+            <item>Nếu xem đây là các số có dấu thì tràn vì kết quả vượt quá phạm vi cho phép đối với số có dấu (cộng 2 số dương, kết quả lại là số âm). Thật sự trong trường hợp này, CPU sẽ làm cho OF = 1 theo qui tắc "Nhớ ra và vào MSB xảy ra không đồng thời” nghĩa là có nhớ vào MSB nhưng không có nhớ ra hoặc ngược lại thì tràn và không có hoặc có nhớ ra và vào MSB thì không tràn.</item>
+          </list>
+        </section>
+      </section>
+      <section id="id-745857260377">
+        <title>1.2. BỘ NHỚ TRONG CỦA INTEL-80x86</title>
+        <section id="id-468552733604">
+          <title>1.2.1. Tổ chức dữ liệu</title>
+          <para id="id34746272">Bộ nhớ trong được tổ chức thành mảng gồm các ô nhớ 8 bit liên tực nhau. Các dữ liệu có thể được ghi vào hoặc đọc ra (gọi là truy xuất) từ bất cứ vị trí ô nhớ nào. Mỗi ô nhớ 8 bit được phần cứng quản lý bằng một địa chỉ vật lý duy nhất. Việc truy xuất nội dung ô nhớ phải bằng địa chỉ vật lý này.</para>
+          <para id="id34746287">Dữ liệu 8 bit được lưu trữ bằng một ô nhớ và địa chỉ của ô nhớ chính là địa chỉ dùng để truy xuất dữ liệu. Dữ liệu nhiều hơn 8 bit được lưu trữ bởi nhiều ô nhớ liên tục nhau. Theo quy ước Intel, byte dữ liệu cao được lưu ở ô nhớ có địa chỉ cao và byte dữ liệu thấp hơn lưu ở ô nhớ có địa chỉ thấp hơn. Khi đó, địa chỉ dùng để truy xuất dữ liệu là địa chỉ của ô nhớ thấp (ô nhớ chứa byte thấp nhất của dữ liệu)</para>
+          <para id="id34882218">Hình 1.3 mô tả việc tổ chức các dữ liệu có độ dài khác nhau trong bộ nhớ. Giá trị 5Fh (1 byte) được lưu trữ ở địa chỉ 0010h. Giá trị 0A0B1h (2 byte) được lưu trữ bởi 2 ô nhớ có địa chỉ 0015h và 0016h, địa chỉ để truy xuất giá trị này là 0015h. Còn giá trị 0A2B1C0h (3 byte) được lưu trữ bởi 3 ô nhớ 0012h, 0013h và 0014h, do đó địa chỉ truy xuất giá trị ấy là 0012h.</para>
+          <table id="id34882224" summary="">
+            <tgroup cols="3">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry>Bộ nhớ</entry>
+                  <entry>Địa chỉ</entry>
+                </row>
+                <row>
+                  <entry>(A0h là byte cao, B1h là byte thấp)</entry>
+                  <entry>A0h</entry>
+                  <entry>0016h</entry>
+                </row>
+                <row>
+                  <entry>Giá trị: 0A0B1h </entry>
+                  <entry>B1h</entry>
+                  <entry>0015h</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry>A2h</entry>
+                  <entry>0014h </entry>
+                </row>
+                <row>
+                  <entry>(C0h byte thấp nhất, A2h byte cao nhất)</entry>
+                  <entry>B1h</entry>
+                  <entry>0013h</entry>
+                </row>
+                <row>
+                  <entry>Giá trị: 0A2B1C0h </entry>
+                  <entry>C0h</entry>
+                  <entry>0012h</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry>0011h</entry>
+                </row>
+                <row>
+                  <entry>Giá trị: 5Fh </entry>
+                  <entry>5Fh</entry>
+                  <entry>0010h</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33193416">Hình 1.3: Tổ chức dữ liệu trong bộ nhớ</para>
+        </section>
+        <section id="id-799888964389">
+          <title>1.2.2. Sự phân đoạn bộ nhớ trong</title>
+          <para id="id34142072">CPU 8086 có không gian địa chỉ là 1MB (ứng với 20 bit địa chỉ) Vậy CPU 8086 có thể quản lý bộ nhớ trong là 220 = 1MB. Bộ nhớ 1 MB này được CPU-8086 quản lý bằng nhiều đoạn 64 KB. Các đoạn có thể tách rời hoặc có thể chồng lên nhau.</para>
+          <para id="id35362413">Mỗi đoạn có một địa chỉ đoạn 16 bit duy nhất, tùy vào mục đích sử dụng đoạn mà địa chỉ đoạn được lưu trữ trong thanh ghi đoạn tương ứng.</para>
+          <para id="id35362424">Đối với người lập trình, Địa chỉ của ô nhớ trong bộ nhớ được xác định bởi hai thông số 16 bit (gọi là địa chỉ logic): Địa chỉ Đoạn (segment) và địa chỉ độ dời (offset). </para>
+          <para id="id35362432">Cách viết: Segment : Offset</para>
+          <para id="id33185093">Địa chỉ vật lý của ô nhớ khi truy xuất sẽ được BIU tự động chuyển đổi từ địa chỉ logic bằng cách dịch trái thanh ghi đoạn bốn bit (tức nhân nội dung của thanh ghi đoạn cho 16) rồi cộng với địa chỉ độ dời. Vì vậy, người lập trình không cần địa chỉ vật lý của ô nhớ mà chỉ cần biết địa chỉ logic của ô nhớ.</para>
+          <para id="id33589561">Ví dụ: đoạn CS có giá trị là 1002h, địa chỉ độ dời của ô nhớ K trong đoạn CS là 500h (CS:0500h hoặc 1002h:0500h). Khi đó, địa chỉ vật lý của ô nhớ K được tính như sau:</para>
+          <para id="id33589586">10020h (dịch trái địa chỉ đoạn 4 bit)</para>
+          <para id="id35362059">+ 0500h (độ dời)</para>
+          <para id="id31461415"> 10520h (địa chỉ vật lý)</para>
+          <para id="id35089338">Trong ví dụ trên, đoạn CS có điểm bắt đầu ở địa chỉ vật lý 10020h. Độ dời 500h là khoảng cách từ địa chỉ của điểm bắt đầu của đoạn CS đến ô nhớ K (xem hình 1.4)</para>
+          <table id="id35360407" summary="">
+            <tgroup cols="4">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <colspec colnum="4" colname="c4"/>
+              <tbody>
+                <row>
+                  <entry/>
+                  <entry>Bộ nhớ</entry>
+                  <entry namest="c3" nameend="c4">Địa chỉ vật lý</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry>10521h</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entrytbl namest="c1" nameend="c3" cols="3">
+                    <colspec colnum="1" colname="c1"/>
+                    <colspec colnum="2" colname="c2"/>
+                    <colspec colnum="3" colname="c3"/>
+                    <tbody>
+                      <row>
+                        <entry>Ô nhớ K </entry>
+                        <entry/>
+                        <entry>10520h</entry>
+                      </row>
+                      <row>
+                        <entry>trong đoạn CS (CS:500h)</entry>
+                        <entry/>
+                        <entry>1051Fh</entry>
+                      </row>
+                    </tbody>
+                  </entrytbl>
+                  <entry> Độ dời 500h tính từ điểm đầu đoạn CS</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry>- - -</entry>
+                  <entry>- - -</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry>- - -</entry>
+                  <entry>- - -</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>Ô nhớ có độ dời 05h </entry>
+                  <entry/>
+                  <entry>10025h</entry>
+                  <entry>501h ô nhớ</entry>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry>10024h</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry/>
+                  <entry>10023h</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>Ô nhớ có độ dời 01h </entry>
+                  <entry/>
+                  <entry>10022h</entry>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>Ô nhớ có độ dời 0h trong đoạn CS (CS:00h)</entry>
+                  <entrytbl namest="c2" nameend="c4" cols="3">
+                    <colspec colnum="1" colname="c1"/>
+                    <colspec colnum="2" colname="c2"/>
+                    <colspec colnum="3" colname="c3"/>
+                    <tbody>
+                      <row>
+                        <entry/>
+                        <entry>10021h</entry>
+                        <entry/>
+                      </row>
+                      <row>
+                        <entry/>
+                        <entry>10020h</entry>
+                        <entry> Điểm đầu đoạn CS</entry>
+                      </row>
+                      <row>
+                        <entry/>
+                        <entry>1001Fh</entry>
+                        <entry/>
+                      </row>
+                    </tbody>
+                  </entrytbl>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id32784330">Hình 1.4: Địa chỉ vật lý của ô nhớ K trong đoạn CS</para>
+          <para id="id32784336">Khi truy xuất ô nhớ, BIU lấy sẽ sử dụng địa chỉ đoạn trong thanh ghi đoạn tương ứng với tính chất của ô nhớ cần truy xuất:</para>
+          <para id="id32784348">- Ô nhớ là Code (Mã lệnh) thì đoạn tương ứng là CS.</para>
+          <para id="id32784355">- Ô nhớ là Data (dữ liệu) thì đoạn tương ứng là DS.</para>
+          <para id="id31574745">- Ô nhớ nằm trên ngăn xếp thì dùng đoạn SS.</para>
+          <para id="id31574751">- Khi truy xuất chuỗi, DI và SI luôn chứa độ dời của ô nhớ trong đoạn DS hay ES</para>
+          <para id="id31574759">Khi khởi động, CPU 8086 nhảy đến địa chỉ vật lý cao nhất của bộ nhớ trong (đoạn CS = 0FFFFh và độ dời 0) để lấy lệnh. Địa chỉ này ứng với địa chỉ của ROM-BIOS của bộ nhớ trong nơi chứa chương trình khởi động máy tính.</para>
+        </section>
+      </section>
+      <section id="id-513457554247">
+        <title>1.3. Địa chỉ các ngoại vi</title>
+        <para id="id35362012">Các ngoại vi đều có địa chỉ riêng từ 0 đến 64K. CPU 8086 dùng các lệnh riêng biệt để truy xuất ngoại vi và bộ nhớ trong. Muốn truy xuất ngoại vi, BIU chỉ cần đưa địa chỉ của ngoại vi lên 16 bit thấp của bus địa chỉ (không có đoạn).</para>
+        <para id="id35362016">I/O64 kByteMemory 1 MByteIntel-8086
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </para>
+        <para id="id34852238">Hình 1.5: Cấu trúc đơn giản của máy tính</para>
+      </section>
+      <section id="id-0502134264851">
+        <title>1.4. CÁC BỘ XỬ LÝ INTEL KHÁC</title>
+        <para id="id34852253">Ngoài CPU-8086, Intel đã cho ra đời thế hệ CPU mới hơn, nhiều tính năng hơn và mạnh hơn như: 80186, 80286, 80386, 80486, Celeron và Pentium (80586). Ngày nay, sức mạnh và tính năng của CPU Intel tăng vượt bậc nhờ công nghệ mới như: Centrino, Hyper Threading, Core Duo.</para>
+        <para id="id33186944">Bắt đầu từ CPU 80286, hãng Intel đã đưa vào một số cải tiến có ý nghĩa như tăng bus địa chỉ lên 24 bit và có thể vận hành với chế độ bảo vệ (protected mode). Chế độ này cho phép CPU 80286 vận hành trong một hệ điều hành đa nhiệm (multitasking).</para>
+        <section id="id-00227986372727">
+          <title>1.4.1. Bộ xử lý 80386 </title>
+          <para id="id35005323">Hãng Intel đã thành công lớn khi chế tạo CPU 80386. Đây vẫn còn là một CPU CISC thuần túy có bus địa chỉ 32 bit và bus số liệu 32 bit (ta gọi CPU 80386 là một CPU 32 bit).</para>
+          <para id="id35005335">Các thanh ghi của CPU 80386 đều là thanh ghi 32 bit (Hình 1.5). Một số thanh ghi đa dụng có thể chia thành thanh ghi 16 bit hoặc chia thành thanh ghi 8 bit để đảm bảo tính tương thích với các CPU chế tạo trước đó.</para>
+          <para id="id33137161">Với bus địa chỉ 32 bit, không gian địa chỉ của CPU 80386 là 4 GB tức 4096 MB. CPU 80386 có 64K cửa vào/ra 8 bit, 16 bit và 32 bit.</para>
+          <para id="id33137174">CPU 80386 cũng có thể hoạt động với bộ đồng xử lý toán học 80387 (math coprocessor). Bộ đồng xử lý toán học dùng xử lý các phép tính trên các số có dấu chấm động (số lẻ).</para>
+        </section>
+        <section id="id-803932156213">
+          <title>I.4.2. Tập thanh ghi của bộ xử lý 80386:</title>
+          <para id="id31573649">Hình 1.6 mô tả đầy đủ tập thanh ghi của CPU-80386.</para>
+          <para id="id31573656">Các thanh ghi đa dụng và thanh ghi con trỏ được mở rộng thành thanh ghi 32 bit được gọi tên là: EAX, EBX, ESP, EDI... . Tuy nhiên ta vẫn có thể sử dụng các thanh ghi 16 bit (AX, BX, ... ) hoặc 8 bit (AH, AL, BH, BL ... ) giống như các thanh ghi 16 bit hoặc 8 bit của bộ xử lý 8086.</para>
+          <para id="id31573660">Chiều dài các thanh ghi đoạn vẫn giữ nguyên 16 bit nhưng có thêm hai thanh ghi đoạn thêm là FS và GS. Các thanh ghi FS và GS được dùng giống như thanh ghi ES. Nghĩa là CPU-80386 quản lý được bốn đoạn dữ liệu.</para>
+          <para id="id31573664">Thanh ghi trạng thái SR (Status register) và thanh ghi đếm chương trình PC (program counter) cũng được nâng lên 32 bit. Ngoài các bit trạng thái đã thấy trong thanh ghi trạng thái của CPU-8086 (C, Z, S, ... ) thanh ghi trạng thái của CPU-80386 còn có thêm các bit trạng thái như sau:</para>
+          <list id="id35362294" list-type="bulleted">
+            <item>IOP (Input/Output protection: bảo vệ vào/ra): Đây là hai bit trạng thái dùng trong chế độ bảo vệ để xác định mức ưu tiên mà một tiến trình phải có để có thể thâm nhập một vùng vào ra. Chỉ hệ điều hành mới có quyền dùng các bit này.</item>
+            <item>N (Nested task: tiến trình lồng vào nhau): Trong chế độ bảo vệ, các hệ điều hành dùng bit này để biết có nhiều tiến trình đang vận hành và ít nhất có một tiến trình đang bị gián đoạn.</item>
+            <item>R (Resume: tải trục): Bit này cho phép một tiến trình được tiếp tục vận hành lại sau khi bị gián đoạn.</item>
+            <item>V (Virtual 8086 mode: chế độ 8086 ảo): Bit này cho phép 80386 đang vận hành ở chế độ bảo vệ, chuyển sang chế độ 8086 ảo.</item>
+          </list>
+          <table id="id34915182" summary="">
+            <tgroup cols="5">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <colspec colnum="4" colname="c4"/>
+              <colspec colnum="5" colname="c5"/>
+              <tbody>
+                <row>
+                  <entry namest="c1" nameend="c5">31 16 15 8 7 0</entry>
+                </row>
+                <row>
+                  <entry>EAX</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry>AH</entry>
+                  <entry>AL</entry>
+                </row>
+                <row>
+                  <entry>EBX</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry>BH</entry>
+                  <entry>BL</entry>
+                </row>
+                <row>
+                  <entry>ECX</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry>CH</entry>
+                  <entry>CL</entry>
+                </row>
+                <row>
+                  <entry>EDX</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry>DH</entry>
+                  <entry>DL</entry>
+                </row>
+                <row>
+                  <entry>ESP</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">SP</entry>
+                </row>
+                <row>
+                  <entry>EBP</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">BP</entry>
+                </row>
+                <row>
+                  <entry>ESI</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">SI</entry>
+                </row>
+                <row>
+                  <entry>EDI</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">DI</entry>
+                </row>
+                <row>
+                  <entry>ESR</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">SR</entry>
+                </row>
+                <row>
+                  <entry>EPC</entry>
+                  <entry namest="c2" nameend="c3"/>
+                  <entry namest="c4" nameend="c5">PC</entry>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">CS</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">DS</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">SS</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">ES</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">FS</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c2">GS</entry>
+                  <entry namest="c3" nameend="c5"/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id34985421">Hình 1.6a: Thanh ghi đa dụng và thanh ghi con trỏ</para>
+          <table id="id34985427" summary="">
+            <tgroup cols="4">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <colspec colnum="4" colname="c4"/>
+              <tbody>
+                <row>
+                  <entry namest="c1" nameend="c4">15 0 31 0 19 0 </entry>
+                </row>
+                <row>
+                  <entry>TR</entry>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>LDTR</entry>
+                  <entry/>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry>IDTR</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry/>
+                  <entry>GDTR</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id33188685">Hình 1.6b: Thanh ghi quản lý bộ nhớ</para>
+          <table id="id33188691" summary="">
+            <tgroup cols="6">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <colspec colnum="3" colname="c3"/>
+              <colspec colnum="4" colname="c4"/>
+              <colspec colnum="5" colname="c5"/>
+              <colspec colnum="6" colname="c6"/>
+              <tbody>
+                <row>
+                  <entry namest="c1" nameend="c6">31 16 15 0 31 16 15 0</entry>
+                </row>
+                <row>
+                  <entry>CR3</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR7</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>CR2</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR6</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>CR1</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR5</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>CR0</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR4</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c3">Hình 1.6c: Thanh ghi điều khiển</entry>
+                  <entry>DR3</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c3">31 16 15 0</entry>
+                  <entry>DR2</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>TR7</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR1</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry>TR6</entry>
+                  <entry/>
+                  <entry/>
+                  <entry>DR0</entry>
+                  <entry/>
+                  <entry/>
+                </row>
+                <row>
+                  <entry namest="c1" nameend="c3">Hình 1.6d: Thanh ghi kiểm tra</entry>
+                  <entry namest="c4" nameend="c6">Hình 1.6e: Thanh ghi gỡ rối</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id31460169">Hình 1.6: Các thanh ghi của CPU 80386</para>
+        </section>
+        <section id="id-52211435047">
+          <title>1.4.3. Các chế độ vận hành của bộ xử lý 80386 </title>
+          <para id="id34141223">CPU-80386 có thể vận hành theo một trong ba chế độ khác nhau: chế độ thực (real mode), chế độ bảo vệ (protected mode) và chế độ 8086 ảo (virtual 8086 mode). Chế độ vận hành của CPU phải được thiết lập trước bằng phần cứng.</para>
+          <list id="id34141237" list-type="bulleted">
+            <item>Chế độ thực: chế độ thực của bộ xử lý 80386 hoàn toàn tương thích với chế độ vận hành của bộ xử lý 8086. Trong chế độ này, không gian địa chỉ của 80386 bị giới hạn ở mức 220 = 1MB giống như không gian địa chỉ của 8086 mặc dù bus địa chỉ của 80386 có 32 đường dây.</item>
+            <item>Chế độ bảo vệ: (Còn gọi là chế độ đa nhiệm) chế độ bảo vệ đã được đầu tiên đưa vào bộ xử lý 80286. Chế độ này cho phép bộ xử lý 80386 dùng hết không gian địa chỉ của nó là 232 = 4096 MB và cho phép nó vận hành dưới một hệ điều hành đa nhiệm. Trong hệ điều hành đa nhiệm, nhiều tiến trình có thể chạy đồng thời và được bảo vệ chống lại các thâm nhập trái phép vào vùng ô nhớ bị cấm.</item>
+          </list>
+          <para id="id31460174">Trong chế độ bảo vệ, các thanh ghi đoạn không được xem như địa chỉ bắt đầu của đoạn mà là thanh ghi chọn (selector) gán các ưu tiên khác nhau cho các tiến trình. Phần ưu tiên khác nhau cho các tiến trình. Phần cốt lõi của hệ điều hành có ưu tiên cao nhất và người sử dụng có ưu tiên thấp nhất.</para>
+          <list id="id34881556" list-type="bulleted">
+            <item>Chế độ 8086 ảo: Chế độ này cho phép thiết lập một kiểu vận hành đa nhiệm trong đó các chương trình dùng trong chế độ thực, có thể chạy song song với các tiến trình khác.</item>
+          </list>
+        </section>
+        <section id="id-389297313499">
+          <title>1.4.4. Bộ xử lý Intel 80486:</title>
+          <para id="id33646373">CPU-80486DX được phát hành năm 1989. Đó là bộ xử lý 32bit chứa 1.2 triệu transistor. Khả năng quản lý bộ nhớ tối đa giống như 80386 nhưng tốc độ thi hành lệnh đạt được 26.9 MIPS (Mega Instructions Per Second - triệu lệnh mỗi giây) tại xung nhịp 33 MHz </para>
+          <para id="id33646393">Nếu bộ xử lý 80386 là bộ xử lý CISC thuần túy với bộ đồng xử lý toán học 80387 nằm bên ngoài bộ xử lý 80386, thì bộ xử lý 80486 là một bộ xử lý hỗn tạp CISC và RISC với bộ đồng xử lý toán học và với 8K cache nằm bên trong bộ xử lý 80486.</para>
+          <para id="id33646398">Trong bộ xử lý 80486, một số lệnh thường dùng, ví dụ như lệnh MOV, dùng mạch điện (kỹ thuật RISC) để thực hiện lệnh thay vì dùng vi chương trình như trong các CPU CISC thuần túy. Như thế thì các lệnh thường dùng này được thi hành với tốc độ nhanh hơn. Kỹ thuật ống dẫn cũng được đưa vào trong bộ xử lý 80486.</para>
+          <para id="id34993264">Với các kỹ thuật RISC được đưa vào, bộ xử lý 80486 nhanh hơn bộ xử lý 80386 đến 3 lần (nếu tốc độ xung nhịp là như nhau).</para>
+          <para id="id34039671">Bộ xử lý 80486 hoàn toàn tương thích với 2 bộ xử lý 80386 và 80387 cộng lại và như thế nó có các chế độ vận hành giống như 80386.</para>
+          <para id="id34039681">Bộ xử lý 80486 tỏ ra rất mạnh đối với các chương trình cần tính toán nhiều và các chương trình đồ họa, vì bộ đồng xử lý toán học nằm ngay trong bộ xử lý 80486. Hàng chờ lệnh của bộ xử lý 80486 là 32 byte.</para>
+          <para id="id34039694">
+            <figure id="id34039697">
+              <media id="id8269705" alt=""><image src="../../media/graphics2.jpg" mime-type="image/jpeg" height="147" width="143"/></media>
+            </figure>
+            <figure id="id35124042">
+              <media id="id1170470628983" alt=""><image src="../../media/graphics3.jpg" mime-type="image/jpeg" height="143" width="145"/></media>
+            </figure>
+          </para>
+          <para id="id31452805">Hình 1.7: CPU-80386 Hình 1.8: CPU-80486</para>
+        </section>
+        <section id="id-0120559277896">
+          <title>1.4.5. Bộ xử lý Intel PENTIUM:</title>
+          <para id="id33820221">Được đưa ra thị trường vào giữa năm 1993, các bộ xử lý Pentium được chế tạo với hơn 3 triệu transistor, thụ hưởng các tính năng kỹ thuật của các bộ xử lý 80486 DX/2 và được có thêm nhiều tính năng mới.</para>
+          <para id="id33820230">Theo hãng sản xuất Intel, nếu hoạt động ở với xung nhịp 66 MHz thì tốc độ thi hành lệnh của Pentium là 112 MIPS thay vì 54 MIPS cho bộ xử lý 80486 DX/2 cùng xung nhịp.</para>
+          <para id="id33820241">Các tính năng nổi bật của bộ xử lý Pentium là :</para>
+          <list id="id34952566" list-type="bulleted">
+            <item>Hoàn toàn tương thích với các bộ xử lý được chế tạo trước đó (8086, 80286, 80386, 80486).</item>
+            <item>Dùng kỹ thuật ống dẫn tốt hơn với 2 ống dẫn số nguyên độc lập và một ống dẫn số lẻ. Kỹ thuật siêu vô hướng và tiên đoán lệnh nhảy cũng được đưa vào.</item>
+            <item>Dùng cache lệnh và cache dữ liệu riêng biệt.</item>
+            <item>Bus số liệu là 64 bit với cách vận chuyển theo từng gói.</item>
+            <item>Dùng cách quản lý hệ thống cho phép tiết kiệm năng lượng tiêu hao trong bộ xử lý Pentium.</item>
+            <item>Có tối ưu hóa các chuỗi mã lệnh.</item>
+          </list>
+          <para id="id34141777">Petium MMX: Các lệnh xử lý multimedia được đưa vào tập lệnh của CPU nên việc thi hành chương trình multimedia được cải thiện rất nhiều.</para>
+          <para id="id34141781">
+            <figure id="id34853357">
+              <media id="id3981168" alt=""><image src="../../media/graphics4.jpg" mime-type="image/jpeg" height="190" width="313"/></media>
+            </figure>
+            <figure id="id33037252">
+              <media id="id1170483016073" alt=""><image src="../../media/graphics5.jpg" mime-type="image/jpeg" height="141" width="152"/></media>
+            </figure>
+          </para>
+          <para id="id33767696">
+            <figure id="id33767699">
+              <media id="id7990120" alt=""><image src="../../media/graphics6.jpg" mime-type="image/jpeg" height="115" width="254"/></media>
+            </figure>
+            <figure id="id35077055">
+              <media id="id1170478645279" alt=""><image src="../../media/graphics7.jpg" mime-type="image/jpeg" height="167" width="246"/></media>
+            </figure>
+          </para>
+          <para id="id35077079">Pentium Celeron</para>
+          <figure id="id33765373">
+            <media id="id1170471197848" alt=""><image src="../../media/graphics8.jpg" mime-type="image/jpeg" height="185" width="369"/></media>
+          </figure>
+          <para id="id33765397">
+            <figure id="id33765400">
+              <media id="id1170476779439" alt=""><image src="../../media/graphics9-7a11.png" mime-type="image/png" height="129" width="258"/></media>
+            </figure>
+            <figure id="id33594290">
+              <media id="id7432325" alt=""><image src="../../media/graphics10.jpg" mime-type="image/jpeg" height="125" width="125"/></media>
+            </figure>
+          </para>
+          <para id="id34993377">Hình 1.9: Hình ảnh các loại bộ xử lý Intel</para>
+        </section>
+      </section>
+      <section id="id-792191660928">
+        <title>BÀI TẬP CHƯƠNG 1</title>
+        <para id="id34993392">1. Chọn các thanh ghi đa dụng để lưu trữ các dữ liệu sau đây, sao cho mỗi thanh ghi lưu trữ 1 giá trị và không trùng nhau (Giải thích việc chọn thanh ghi): 15h, 0AFh, 01234h, 230, 257, ‘H’, 8086.</para>
+        <para id="id34954621">Ghi chú: Số có tận cùng bằng h (hay H) là số thập lục phân (Hexa); </para>
+        <para id="id34954628">‘H’ : Ký tự H</para>
+        <para id="id34954636">2. Các thanh ghi đang lưu trữ giá trị như sau:</para>
+        <para id="id33186977">AH = 11hAL = 22hCL = 15</para>
+        <para id="id33186989">CH = 10BX = 0A1D4hDX = 8086</para>
+        <para id="id33187001">Hãy cho biết giá trị thập lục phân của những thanh ghi sau và giải thích:</para>
+        <para id="id34853316">AX, CX, BH, BL, DH, DL</para>
+        <para id="id34853321">3. Mô tả các cách có thể sử dụng được để lưu trữ giá trị vào thanh ghi sau:</para>
+        <para id="id33187006">a. 1234h vào thanh ghi SIb. 5678h vào thanh ghi AX</para>
+        <para id="id34853338">c. 100 vào thanh ghi DId. 100 vào thanh ghi DX</para>
+        <para id="id31462521">4. Sử dụng mô hình bộ nhớ gồm 17 ô nhớ như hình A1 để ghi các dữ liệu sau đây vào bộ nhớ sao cho các giá trị không chồng lên nhau (sinh viên tự chọn địa chỉ ô nhớ để lưu trữ): 15h, 0AFh, 01234h, 230, 257, ‘H’, 8086, 3A4B5h, 0F1D2E3h</para>
+        <table id="id31462539" summary="">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <tbody>
+              <row>
+                <entry>Ô nhớ</entry>
+                <entry>Địa chỉ</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>00010h</entry>
+              </row>
+              <row>
+                <entry>…..</entry>
+                <entry>…..</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>00002h</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>00001h</entry>
+              </row>
+              <row>
+                <entry/>
+                <entry>00000h</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id33132107">Hình A1: Mô hình bộ nhớ</para>
+        <para id="id35358463">5. Với mô hình bộ nhớ kết quả của câu 4, hãy cho biết giá trị dữ liệu 8/16/24/32 bit tại mỗi địa chỉ sau đây ở dạng thập lục phân:</para>
+        <para id="id35358474">a. 00004h  b. 00008hc. 0000Bh d. 0000Dh</para>
+        <para id="id33117211">6. Đổi sang địa chỉ vật lý tương ứng với mỗi địa chỉ logic sau:</para>
+        <para id="id33117218">a. 0000:0001hb. 0100:1234h</para>
+        <para id="id33117230">c. ABCD:3AFFhd. AF70:00CFh</para>
+        <para id="id33117241">7. Viết ra 4 địa chỉ logic khác nhau đối với mỗi địa chỉ vật lý sau:</para>
+        <para id="id35356830">a. 40000hb. 0D32FCh</para>
+        <para id="id35356842">8. Tìm tất cả các địa chỉ logic khác nhau có thể có của mỗi ô nhớ có địa chỉ vật lý sau đây:</para>
+        <para id="id35356852">a. 00000h b. 0000Fhc. 00010h d. 0001Fh</para>
+        <para id="id34833859">Có nhận xét gì về các kết quả trên?</para>
+        <para id="id34833868">9. Cho một chương trình bao gồm 100 byte lệnh (Code), 200 byte dữ liệu (Data) và 16 KB ngăn xếp (Stack). Vẽ hình mô tả tổ chức vùng nhớ của chương trình trên trong bộ nhớ có mô hình như hình A2 theo hai cách sau (sinh viên tự gán địa chỉ vật lý và logic thích hợp với đầu và cuối cho từng vùng):</para>
+        <para id="id33184428">a. Dùng chung 1 đoạn duy nhất cho cả 3 vùng Code, Data và Stack</para>
+        <para id="id33184434">b. Dùng 3 đoạn riêng biệt không chồng nhau cho Code, Data, Stack</para>
+        <table id="id33184441" summary="">
+          <tgroup cols="3">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <tbody>
+              <row>
+                <entry>Địa chỉ logic</entry>
+                <entry>Ô nhớ</entry>
+                <entry>Địa chỉ vật lý</entry>
+              </row>
+              <row>
+                <entry>….:….</entry>
+                <entry/>
+                <entry>….</entry>
+              </row>
+              <row>
+                <entry>…..:…</entry>
+                <entry>…..</entry>
+                <entry>…..</entry>
+              </row>
+              <row>
+                <entry>….:…</entry>
+                <entry/>
+                <entry>….</entry>
+              </row>
+              <row>
+                <entry>….:…</entry>
+                <entry/>
+                <entry>….</entry>
+              </row>
+              <row>
+                <entry>….:…</entry>
+                <entry/>
+                <entry>….</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+        <para id="id33640890">Hình A2: Mô hình tổ chức bộ nhớ</para>
+        <para id="id34907996">10. Bằng mô hình bộ nhớ kết quả của câu 9a, hãy thiết lập giá trị các thanh ghi sao cho CPU-8086 truy xuất được những ô nhớ trong mỗi trường hợp sau:</para>
+        <para id="id34908006">a. Byte lệnh đầu tiênb. Byte lệnh thứ 20</para>
+        <para id="id34908019">c. Byte dữ liệu đầu tiênd. Byte dữ liệu thứ 100</para>
+      </section>
+    </section>
+  </content>
+</document>
